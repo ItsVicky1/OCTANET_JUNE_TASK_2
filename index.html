@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    
+        <div class="container">
+            <div class="addTask">
+                <input type="text" placeholder="Add a Task">
+                <button>Add</button>
+            </div>
+            
+            <h3>Not Completed Task</h3>
+            <ol class="notcompleted">
+            </ol>
+            <h3>Completed Task</h3>
+            <ol class="completed">
+            </ol>
+        </div>
+       
+    
+        <script>
+            const input = document.querySelector('input');
+            const btn = document.querySelector('.addTask > button');
+            const notcompleted = document.querySelector('.notcompleted');
+            const completed = document.querySelector('.completed');
+          
+            btn.addEventListener('click', addList);
+            input.addEventListener('keyup', (e) => {
+              if (e.key === 'Enter') {
+                addList();
+              }
+            });
+          
+            function addList() {
+              const newLi = document.createElement('li');
+              const checkBtn = document.createElement('button');
+              const delBtn = document.createElement('button');
+          
+              checkBtn.innerHTML = '<ion-icon name="checkmark-outline"></ion-icon>';
+              delBtn.innerHTML = '<ion-icon name="trash-outline"></ion-icon>';
+          
+              if (input.value.trim() !== '') {
+                newLi.textContent = input.value.trim();
+                input.value = '';
+                notcompleted.appendChild(newLi);
+                newLi.appendChild(checkBtn);
+                newLi.appendChild(delBtn);
+          
+                checkBtn.addEventListener('click', () => {
+                  newLi.remove();
+                  completed.appendChild(newLi);
+                  checkBtn.style.display = 'none';
+                });
+          
+                delBtn.addEventListener('click', () => {
+                  newLi.remove();
+                });
+              }
+            }
+          </script>
+          
+</body>
+
+</html>
